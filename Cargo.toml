@@ -1,0 +1,41 @@
+[package]
+name = "codewars"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.dev]
+opt-level = 1
+[profile.dev.package."*"]
+opt-level = 3
+
+[profile.test]
+opt-level = 1
+[profile.test.package."*"]
+opt-level = 3
+
+[dependencies]
+bit-set = "0.5.2"
+chrono = "0.4.19"
+either = "1.6.1"
+fancy-regex = "0.7.1"
+futures = "0.3.17"
+im = "15.0.0"
+itertools = "0.10.1"
+lazy_static = "1.4.0"
+num = { version = "0.4.0", features = ["rand"] }
+once_cell = "1.8.0"
+rand = "0.8.4"
+regex = "1.5.4"
+serde = { version = "1.0.130", features = ["derive"] }
+serde_json = "1.0.68"
+text_io = "0.1.9"
+thiserror = "1.0.30"
+tokio = { version = "1.12.0", features = ["full"] }
+tokio-util = { version = "0.6.8", features = ["full"] }
+
+[dev-dependencies]
+quickcheck = "1.0.3"
+quickcheck_macros = "1.0.0"
+float_eq = "0.7.0"
