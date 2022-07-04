@@ -10,3 +10,4 @@ mod valid_parentheses;
 mod backspaces_in_string;
 mod find_the_parity_outlier;
 mod multiplication_table;
+mod perimeter_of_squares_in_a_rectangle;
