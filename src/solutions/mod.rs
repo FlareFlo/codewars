@@ -9,3 +9,4 @@ mod versions_manager;
 mod valid_parentheses;
 mod backspaces_in_string;
 mod find_the_parity_outlier;
+mod multiplication_table;
