@@ -6,3 +6,4 @@ mod multiples_of_3_or_5;
 mod descending_order;
 mod multiply;
 mod versions_manager;
+mod valid_parentheses;
