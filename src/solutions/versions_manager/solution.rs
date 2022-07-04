@@ -116,7 +116,7 @@ impl VersionManager {
 }
 
 
-use crate::solutions::versions_manager::preloaded::VMError::InvalidVersion;
+use crate::solutions::versions_manager::solution::VMError::InvalidVersion;
 
 
 #[test]
