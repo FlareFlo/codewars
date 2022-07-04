@@ -7,3 +7,4 @@ mod descending_order;
 mod multiply;
 mod versions_manager;
 mod valid_parentheses;
+mod backspaces_in_string;
