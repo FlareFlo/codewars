@@ -118,6 +118,7 @@ impl VersionManager {
 
 #[test]
 fn from_invalid_version() {
+	use crate::solutions::versions_manager::solution::VMError::InvalidVersion;
 
 	assert_eq!(VersionManager::from_version("1.2.c"), Err(InvalidVersion));
 }
