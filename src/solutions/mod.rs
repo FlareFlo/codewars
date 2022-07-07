@@ -13,3 +13,4 @@ mod multiplication_table;
 mod perimeter_of_squares_in_a_rectangle;
 mod sudoku_solution_validator;
 mod binary_contiguous_array;
+mod human_readable_duration_format;
