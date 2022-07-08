@@ -15,3 +15,4 @@ mod sudoku_solution_validator;
 mod binary_contiguous_array;
 mod human_readable_duration_format;
 mod luck_check;
+mod rot13;
