@@ -44,7 +44,7 @@ fn binarray(a: &[u8]) -> u32 {
 
 #[cfg(test)]
 mod tests {
-	use tokio::time::Instant;
+	use std::time::Instant;
 	use super::binarray;
 
 	const ERR_MSG: &str = "\nYour result (left) did not match the expected output (right)";
