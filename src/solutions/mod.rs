@@ -16,3 +16,5 @@ mod binary_contiguous_array;
 mod human_readable_duration_format;
 mod luck_check;
 mod rot13;
+mod multiplying_numbers_as_strings;
+mod matrix_determinant;
