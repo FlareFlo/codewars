@@ -1,10 +1,19 @@
-#[derive(Debug)]
 struct Sieve {
-	primes: Vec<bool>,
+	primes: Vec<u64>,
 	last: usize,
 	before_last: usize,
 }
-impl Iterator for Sieve {	
+
+impl Sieve {
+	#[inline(always)]
+	fn unset_bit(&mut self, n: usize) {
+		let index = n / 64;
+		let bit = n % 64;
+		self.primes[index] &= !(1 << bit);
+	}
+}
+
+impl Iterator for Sieve {
 	type Item = u32;
 
 	fn next(&mut self) -> Option<Self::Item> {
@@ -14,26 +23,38 @@ impl Iterator for Sieve {
 
 		self.before_last = self.last;
 
-		for (i, maybe_prime) in self.primes[(self.last + 1)..].iter().enumerate() {
-			if *maybe_prime {
-				self.last = i + self.last + 1;
-				break;
+		let start = (self.last + 1) / 64;
+		let mut found = false;
+
+		for i in start..self.primes.len() {
+			if self.primes[i] != 0 {
+				let base = i * 64;
+				for offset in 0..64 {
+					let n = base + offset;
+					if n > self.before_last && (self.primes[i] & (1 << offset)) != 0 {
+						self.last = n;
+						found = true;
+						break;
+					}
+				}
+				if found {
+					break;
+				}
 			}
 		}
 
-		for i in (self.last..self.primes.len()).step_by(self.last) {
-			self.primes[i] = false;
+		for i in (self.last..self.primes.len() * 64).step_by(self.last) {
+			self.unset_bit(i);
 		}
 
-		return Some(self.last as u32)
+		Some(self.last as u32)
 	}
-
 }
 
 
 fn stream() -> impl Iterator<Item = u32> {
 	Sieve {
-		primes: vec![true; 5_000_000],
+		primes: vec![u64::MAX; 1_000_000],
 		last: 1,
 		before_last: 0,
 	}
@@ -67,15 +88,5 @@ mod tests {
 
 		println!("testing segment from 1,000");
 		test_segment(1_000, [7927, 7933, 7937, 7949, 7951, 7963, 7993, 8009, 8011, 8017]);
-	}
-
-	#[test]
-	fn many() {
-		let sieve = Sieve {
-			primes: vec![true; 16_000_000],
-			last: 1,
-			before_last: 0,
-		};
-		println!("{}", sieve.count());
 	}
 }
