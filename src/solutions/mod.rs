@@ -19,3 +19,4 @@ mod rot13;
 mod multiplying_numbers_as_strings;
 mod matrix_determinant;
 mod prime_streaming;
+mod not_very_secure;
