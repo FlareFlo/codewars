@@ -11,7 +11,10 @@ fn main() {
     let mut name = args.get(1).unwrap_or_else(|| {
             panic!("No folder name provided");
         }).clone();
-    name = name.replace(" ", "_").to_lowercase();
+    name = name
+        .replace(" ", "_")
+        .replace(":", "")
+        .to_lowercase();
 
     // Make new folder
     fs::create_dir("src/solutions/".to_owned() + &name).unwrap();
