@@ -1,3 +1,8 @@
+#![allow(unused_imports)]
+#![allow(dead_code)]
+#![allow(unused_variables)]
+#![allow(unused_mut)]
+
 mod replace_with_alphabet_position;
 mod where_my_anagrams_at;
 mod break_camel_case;
@@ -20,3 +25,4 @@ mod multiplying_numbers_as_strings;
 mod matrix_determinant;
 mod prime_streaming;
 mod not_very_secure;
+mod rail_fence_cipher_encoding_and_decoding;
