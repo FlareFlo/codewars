@@ -22,18 +22,18 @@ enum Pipe {
 impl Display for Pipe {
 	fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
 		write!(f, "{}", match self {
-			Pipe::UP_AND_RIGHT => {'┗'}
-			Pipe::DOWN_AND_LEFT => {'┓'}
-			Pipe::DOWN_AND_RIGHT => {'┏'}
-			Pipe::UP_AND_LEFT => {'┛'}
-			Pipe::HORIZONTAL => {'━'}
-			Pipe::VERTICAL => {'┃'}
-			Pipe::VERTICAL_AND_RIGHT => {'┣'}
-			Pipe::VERTICAL_AND_LEFT => {'┫'}
-			Pipe::DOWN_AND_HORIZONTAL => {'┳'}
-			Pipe::UP_AN_HORIZONTAL => {'┻'}
-			Pipe::VERTICAL_AND_HORIZONTAL => {'╋'}
-			Pipe::EMPTY => {'.'}
+			Pipe::UP_AND_RIGHT => { '┗' }
+			Pipe::DOWN_AND_LEFT => { '┓' }
+			Pipe::DOWN_AND_RIGHT => { '┏' }
+			Pipe::UP_AND_LEFT => { '┛' }
+			Pipe::HORIZONTAL => { '━' }
+			Pipe::VERTICAL => { '┃' }
+			Pipe::VERTICAL_AND_RIGHT => { '┣' }
+			Pipe::VERTICAL_AND_LEFT => { '┫' }
+			Pipe::DOWN_AND_HORIZONTAL => { '┳' }
+			Pipe::UP_AN_HORIZONTAL => { '┻' }
+			Pipe::VERTICAL_AND_HORIZONTAL => { '╋' }
+			Pipe::EMPTY => { '.' }
 		})
 	}
 }
@@ -127,7 +127,7 @@ struct CharMap {
 impl CharMap {
 	pub fn new(map: &[&str]) -> Self {
 		Self {
-			map: map.iter().map(|e| e.chars().map(|e|Pipe::from(e)).collect()).collect(),
+			map: map.iter().map(|e| e.chars().map(|e| Pipe::from(e)).collect()).collect(),
 			size_x: map[0].chars().count() as _,
 			size_y: map.len() as _,
 		}
@@ -138,7 +138,7 @@ impl CharMap {
 
 		// Top Row - Left to right
 		for x in 0..self.size_x {
-			let coords = Coordinate( x as _, 0);
+			let coords = Coordinate(x as _, 0);
 			let char = self[coords];
 			if char.open_top() {
 				out.insert(coords);
@@ -186,7 +186,7 @@ impl CharMap {
 
 	pub fn debug(&self) {
 		for pip in &self.map {
-			println!("{}", pip.iter().map(|e|e.to_string()).collect::<String>());
+			println!("{}", pip.iter().map(|e| e.to_string()).collect::<String>());
 		}
 	}
 
@@ -239,9 +239,8 @@ impl Index<Coordinate> for CharMap {
 
 fn check_pipe(pipe_map: &[&str]) -> bool {
 	let map = CharMap::new(pipe_map);
-	// map.debug();
 	let sources = map.get_sources();
-	sources.into_iter().all(|source|!source_leaks_water(&map, HashSet::new(), source))
+	sources.into_iter().all(|source| !source_leaks_water(&map, HashSet::new(), source))
 }
 
 // Starts with a list of already seen nodes and a source block that carries water
@@ -283,7 +282,7 @@ fn source_leaks_water(map: &CharMap, mut visited: HashSet<Coordinate>, source_bl
 	}
 
 	if current.open_right() {
-		let next = Coordinate(source_block.0 + 1, source_block.1 - 1);
+		let next = Coordinate(source_block.0 + 1, source_block.1);
 		if !map.is_bounding(next) && !visited.contains(&next) {
 			if source_leaks_water(map, visited.clone(), next) {
 				return true;
@@ -315,13 +314,31 @@ mod sample_tests {
 		}
 	}
 
-	const TEST_CASES: [([&str; 3], bool); 7] = [
-		(["╋━━┓", "┃..┃", "┛..┣"], true),
-		(["...┏", "┃..┃", "┛..┣"], false),
-		(["...┏", "...┃", "┛..┣"], false),
-		(["...┏", "...┃", "┓..┣"], true),
-		(["╋", "╋", "╋"], true),
-		(["╋....", "┃..┛.", "┃...."], false),
-		(["....", ".┛┛.", "...."], true),
+	const BIG: &[&str] = &[
+		"╋━┛┃.┗━┻┛...",
+		"┻━━┛........",
+		"............",
+		"..┏┳━┓......",
+		"━┓┃┗┓┃......",
+		"━┻┛.┫┛......",
+		".........┏━━",
+		".........┃..",
+		"...┏┓....┗━┓",
+		"...┣┛......┗",
+		"...┗━━┓...┏━",
+		"......┃...┃.",
+		".....┏┛...┃.",
+		".┏┓..┃....┗━",
+	];
+
+	const TEST_CASES: [(&[&str], bool); 8] = [
+		(BIG, false),
+		(&["╋━━┓", "┃..┃", "┛..┣"], true),
+		(&["...┏", "┃..┃", "┛..┣"], false),
+		(&["...┏", "...┃", "┛..┣"], false),
+		(&["...┏", "...┃", "┓..┣"], true),
+		(&["╋", "╋", "╋"], true),
+		(&["╋....", "┃..┛.", "┃...."], false),
+		(&["....", ".┛┛.", "...."], true),
 	];
 }
