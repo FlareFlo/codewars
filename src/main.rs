@@ -14,6 +14,8 @@ fn main() {
     name = name
         .replace(" ", "_")
         .replace(":", "")
+        .replace("#", "")
+        .replace("?", "")
         .to_lowercase();
 
     // Make new folder
