@@ -26,8 +26,6 @@ impl Node {
 fn tree_by_levels(root: &Node) -> Vec<u32> {
 	let mut values: Vec<Vec<u32>> = vec![];
 	recurse(&mut values, root, &mut 0);
-
-	dbg!(&values);
 	values.into_iter().flatten().collect()
 }
 
