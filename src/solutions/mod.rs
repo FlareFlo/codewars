@@ -28,3 +28,4 @@ mod not_very_secure;
 mod rail_fence_cipher_encoding_and_decoding;
 mod fix_the_pipes_2_is_it_leaking;
 mod plants_and_zombies;
+mod sort_binary_tree_by_levels;
